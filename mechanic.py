@@ -109,3 +109,21 @@ class MemoryGameApp:
         self._flip_card(card2_idx, reveal=False)
         self.flipped_cards = []
         self._next_player_turn()
+
+    def _next_player_turn(self):
+        if self.game_over:
+            return
+
+        if self.current_game_mode == "Two Players":
+            if self.current_player == "Player 1":
+                self.current_player = "Player 2"
+            else:
+                self.current_player = "Player 1"
+        elif self.current_game_mode == "Player vs. AI":
+            if self.current_player == "Player 1":
+                self.current_player = "Computer"
+                self.master.after(700, self._ai_make_move)
+            else:
+                self.current_player = "Player 1"
+        self._update_current_player_display()
+        self.can_click = True 
