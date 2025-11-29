@@ -102,3 +102,10 @@ class MemoryGameApp:
             self.can_click = True 
             if self.current_game_mode == "Player vs. AI" and self.current_player == "Computer":
                 self.master.after(700, self._ai_make_move)
+
+    def _flip_back_and_switch_turn(self):
+        card1_idx, card2_idx = self.flipped_cards
+        self._flip_card(card1_idx, reveal=False)
+        self._flip_card(card2_idx, reveal=False)
+        self.flipped_cards = []
+        self._next_player_turn()
