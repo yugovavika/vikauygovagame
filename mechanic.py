@@ -9,4 +9,6 @@ class MemoryGameApp:
         self._update_player_labels_visibility()
         self.start_new_game()
 
-    
+    def _on_difficulty_change(self, event):
+        self.current_difficulty = self.difficulty_combobox.get()
+        self.start_new_game()
