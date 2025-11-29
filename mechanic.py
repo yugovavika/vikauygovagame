@@ -153,3 +153,11 @@ class MemoryGameApp:
                 winner_message += "\nНичья с компьютером!"
 
         messagebox.showinfo("Игра окончена", winner_message)
+
+    def _update_timer(self):
+        if not self.game_over and self.start_time: 
+            elapsed_time = int(time.time() - self.start_time)
+            minutes = elapsed_time // 60
+            seconds = elapsed_time % 60
+            self.time_label.config(text=f"Время: {minutes:02d}:{seconds:02d}")
+            self.game_timer_id = self.master.after(1000, self._update_timer)
