@@ -127,3 +127,29 @@ class MemoryGameApp:
                 self.current_player = "Player 1"
         self._update_current_player_display()
         self.can_click = True 
+
+     def _game_over(self):
+        self.game_over = True
+        self.can_click = False
+        if self.game_timer_id:
+            self.master.after_cancel(self.game_timer_id)
+
+        winner_message = "Игра окончена!"
+        if self.current_game_mode == "Single Player":
+            winner_message += f"\nВаши попытки: {self.moves}"
+        elif self.current_game_mode == "Two Players":
+            if self.player_scores["Player 1"] > self.player_scores["Player 2"]:
+                winner_message += f"\nПобедил Игрок 1 с {self.player_scores['Player 1']} очками!"
+            elif self.player_scores["Player 2"] > self.player_scores["Player 1"]:
+                winner_message += f"\nПобедил Игрок 2 с {self.player_scores['Player 2']} очками!"
+            else:
+                winner_message += "\nНичья!"
+        elif self.current_game_mode == "Player vs. AI":
+            if self.player_scores["Player 1"] > self.player_scores["Computer"]:
+                winner_message += f"\nВы победили компьютер с {self.player_scores['Player 1']} очками!"
+            elif self.player_scores["Computer"] > self.player_scores["Player 1"]:
+                winner_message += f"\nКомпьютер победил вас с {self.player_scores['Computer']} очками!"
+            else:
+                winner_message += "\nНичья с компьютером!"
+
+        messagebox.showinfo("Игра окончена", winner_message)
