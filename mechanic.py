@@ -94,3 +94,11 @@ class MemoryGameApp:
                 self.master.after(700, self._check_game_over_or_continue_turn) 
             else:
                 self.master.after(1200, self._flip_back_and_switch_turn) 
+
+    def _check_game_over_or_continue_turn(self):
+        if self.match_count == self.total_pairs:
+            self._game_over()
+        else:
+            self.can_click = True 
+            if self.current_game_mode == "Player vs. AI" and self.current_player == "Computer":
+                self.master.after(700, self._ai_make_move)
